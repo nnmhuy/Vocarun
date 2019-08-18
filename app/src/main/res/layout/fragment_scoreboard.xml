@@ -4,5 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ScoreboardFragment">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:text="High Score"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:id="@+id/scoreboardRecycleView">
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>
