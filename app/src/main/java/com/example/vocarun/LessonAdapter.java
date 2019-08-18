@@ -53,7 +53,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, StudyLesson.class);
-                intent.putExtra("lesson", currentLesson.toString());
+                intent.putExtra("lessonName", currentLesson.name);
                 lessonList.get(position).isOld = true;
                 activity.startActivityForResult(intent, 11);
                 notifyDataSetChanged();
