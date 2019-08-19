@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "527895235244",
+    "firebase_url": "https://vocarun-726a3.firebaseio.com",
+    "project_id": "vocarun-726a3",
+    "storage_bucket": "vocarun-726a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527895235244:android:3927cb38a26c0110",
+        "android_client_info": {
+          "package_name": "com.example.vocarun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527895235244-94do2a68lu2mer2b304unaeo4eh5t792.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGWaYNK1PR0x1uds_EmoqBoVZ2dLeOYIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527895235244-94do2a68lu2mer2b304unaeo4eh5t792.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
