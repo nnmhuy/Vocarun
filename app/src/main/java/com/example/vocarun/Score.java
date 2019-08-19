@@ -2,7 +2,7 @@ package com.example.vocarun;
 
 import java.util.List;
 
-class Score {
+class Score implements Comparable<Score> {
     public String name;
     public int point;
 
@@ -11,4 +11,10 @@ class Score {
         this.name = name;
         this.point = point;
     }
+
+    @Override
+    public int compareTo(Score d) {
+        return  d.point - this.point;
+    }
+
 }

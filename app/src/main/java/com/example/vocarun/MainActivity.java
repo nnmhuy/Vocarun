@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     final Fragment fragment3 = new ScoreboardFragment();
     final FragmentManager fm = getSupportFragmentManager();
     public int currentPoint = -1;
+    public List<Score> scoreList = new ArrayList<>();
     public static final int QUESTION_REQUEST = 12;
     Fragment activeFragment = fragment1;
 
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initLesson();
+        initFaKeScore();
 
         fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.main_container, fragment2, "2").hide(fragment2).commit();
@@ -106,6 +110,14 @@ public class MainActivity extends AppCompatActivity {
         Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
     }
 
+    public void initFaKeScore() {
+        scoreList.add(new Score("Long Vu Quynh Chau", 40));
+        scoreList.add(new Score("Do Nhat Huy", 38));
+        scoreList.add(new Score("Trinh Huu Duc", 38));
+        scoreList.add(new Score("Nguyen Ngoc Minh Huy", 35));
+        scoreList.add(new Score("Dao Hieu", 20));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -114,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 String resultPoint =data.getStringExtra("result");
 //                Log.d("question point", resultPoint);
                 currentPoint = Integer.parseInt(resultPoint);
+                scoreList.add(new Score("YOU", currentPoint));
+                Collections.sort(scoreList);
             }
 //            if (resultCode == Activity.RESULT_CANCELED) {
 //                //Write your code if there's no result
@@ -122,8 +136,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callQuestionActivity() {
+        List<Lesson> hasStudy = new ArrayList<>();
+        List<Lesson> lessonList = Lesson.lessonList;
+        for (int i = 0; i < lessonList.size(); ++i) {
+            if (lessonList.get(i).isOld == true) {
+                hasStudy.add(lessonList.get(i));
+            }
+        }
+        int studySize = hasStudy.size();
+        int max = studySize - 1, min = 0;
+        Random r = new Random();
+        int randomNumber = r.nextInt(max - min + 1) + min;
+
         Intent i = new Intent(this, QuesstionActivity.class);
-        i.putExtra("Lesson_name", "Animal");
+        i.putExtra("Lesson_name", hasStudy.get(randomNumber).name);
         this.startActivityForResult(i, QUESTION_REQUEST);
     }
 
