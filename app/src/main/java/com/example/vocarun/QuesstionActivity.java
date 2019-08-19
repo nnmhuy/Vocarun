@@ -21,6 +21,7 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -60,6 +61,7 @@ public class QuesstionActivity extends Activity {
     public int countPicture = 0;
     public int pointForQuestion = 0;
     public boolean pictureTaken = false;
+    private CountDownTimer countDownTimer;
 
     private static final String TAG = "AndroidCameraApi";
     private Button takePictureButton;
@@ -170,12 +172,33 @@ public class QuesstionActivity extends Activity {
 
     public void getImageResult(Boolean result) {
         Log.println(Log.VERBOSE, "result123", result.toString());
+        if (result == true) {
+            newPoint = newPoint + pointForQuestion;
+            pointForQuestion = 10;
+            TextView pointView = findViewById(R.id.questionScore);
+            pointView.setText(String.valueOf(newPoint));
+        }
+
+    }
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(9 * 10 * 1000, 10 * 1000) {
+            // 500 means, onTick function will be called at every 500 milliseconds
+
+            @Override
+            public void onTick(long leftTimeInMilliseconds) {
+                positionQuestion--;
+            }
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
     }
 
     private void nextQuestion() {
         positionQuestion++;
-        newPoint = newPoint + pointForQuestion;
-        pointForQuestion = 0;
         TextView pointView = findViewById(R.id.questionScore);
         pointView.setText(String.valueOf(newPoint));
         TextView wordView = findViewById(R.id.questionWord);
@@ -193,6 +216,9 @@ public class QuesstionActivity extends Activity {
             btnTakePicture.setEnabled(true);
             createCameraPreview();
         }
+
+        pointForQuestion = 10;
+//        startTimer();
     }
 
     public void controlTakePicture() {
@@ -461,6 +487,8 @@ public class QuesstionActivity extends Activity {
         Button btnTakePicture = (Button) findViewById(R.id.btn_take_picture);
         btnTakePicture.setEnabled(true);
 
+        pointForQuestion = 10;
+//        startTimer();
     }
 
     @Override
