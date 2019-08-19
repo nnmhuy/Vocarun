@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void callQuestionActivity() {
+    public Boolean callQuestionActivity() {
         List<Lesson> hasStudy = new ArrayList<>();
         List<Lesson> lessonList = Lesson.lessonList;
         for (int i = 0; i < lessonList.size(); ++i) {
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         int studySize = hasStudy.size();
+        if (studySize == 0) return false;
         int max = studySize - 1, min = 0;
         Random r = new Random();
         int randomNumber = r.nextInt(max - min + 1) + min;
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, QuesstionActivity.class);
         i.putExtra("Lesson_name", hasStudy.get(randomNumber).name);
         this.startActivityForResult(i, QUESTION_REQUEST);
+        return true;
     }
 
     public int getPoint() {

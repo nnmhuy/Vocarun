@@ -73,7 +73,7 @@
         <Button
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="End quizz"
+            android:text="End quiz"
             android:id="@+id/questionEnd"
             android:background="@color/colorRed"
             android:layout_marginHorizontal="30dp"/>

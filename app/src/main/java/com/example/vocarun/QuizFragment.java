@@ -1,16 +1,16 @@
 package com.example.vocarun;
 
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 
 /**
@@ -35,7 +35,14 @@ public class QuizFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).callQuestionActivity();
+                if (!((MainActivity) getActivity()).callQuestionActivity()) {
+                    Context context = getActivity().getApplicationContext();
+                    CharSequence text = "You must study a lesson first";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                };
             }
         });
 

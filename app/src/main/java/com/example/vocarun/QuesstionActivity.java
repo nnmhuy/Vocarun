@@ -203,6 +203,10 @@ public class QuesstionActivity extends Activity {
         if (positionQuestion == wordSize - 1) {
             Button btnNext = (Button) findViewById(R.id.questionNext);
             btnNext.setEnabled(false);
+            btnNext.clearAnimation();
+            btnNext.setVisibility(View.INVISIBLE);
+            Button btnEnd = findViewById(R.id.questionEnd);
+            btnEnd.setWidth(300);
         }
 
         if (pictureTaken == true) {
