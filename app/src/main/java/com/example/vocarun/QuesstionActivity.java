@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,10 +51,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class QuesstionActivity extends Activity {
-
+    Lesson currentLesson;
     public  String lessonName;
     public int newPoint = 0;
+    public int positionQuestion = 0;
     public int countPicture = 0;
+    public int pointForQuestion = 0;
+    public boolean pictureTaken = false;
 
     private static final String TAG = "AndroidCameraApi";
     private Button takePictureButton;
@@ -91,8 +95,14 @@ public class QuesstionActivity extends Activity {
         buttonEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 returnMainActivity();
+            }
+        });
+        Button buttonNext = findViewById(R.id.questionNext);
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextQuestion();
             }
         });
 
@@ -104,17 +114,62 @@ public class QuesstionActivity extends Activity {
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePicture();
+                controlTakePicture();
             }
         });
     }
 
+    void getCurrentLesson() {
+        List<Lesson> lessonList = Lesson.lessonList;
+        for (int i = 0; i < lessonList.size(); ++i) {
+            if (lessonList.get(i).name.equals(lessonName)) {
+                currentLesson = lessonList.get(i);
+                break;
+            }
+        }
+    }
 
     private void returnMainActivity() {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result",String.valueOf(newPoint));
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
+    }
+
+    public void getImageResult() {
+        
+    }
+
+    private void nextQuestion() {
+        positionQuestion++;
+        newPoint = newPoint + pointForQuestion;
+        pointForQuestion = 0;
+        TextView pointView = findViewById(R.id.questionScore);
+        pointView.setText(String.valueOf(newPoint));
+        TextView wordView = findViewById(R.id.questionWord);
+        wordView.setText( currentLesson.wordList.get( positionQuestion ).word );
+
+        int wordSize = currentLesson.wordList.size();
+        if (positionQuestion == wordSize - 1) {
+            Button btnNext = (Button) findViewById(R.id.questionNext);
+            btnNext.setEnabled(false);
+        }
+
+        if (pictureTaken == true) {
+            pictureTaken = false;
+            Button btnTakePicture = (Button) findViewById(R.id.btn_take_picture);
+            btnTakePicture.setEnabled(true);
+            createCameraPreview();
+        }
+    }
+
+    public void controlTakePicture() {
+        if (pictureTaken == false) {
+            pictureTaken = true;
+            Button btnTakePicture = (Button) findViewById(R.id.btn_take_picture);
+            btnTakePicture.setEnabled(false);
+            takePicture();
+        }
     }
 
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
@@ -343,13 +398,36 @@ public class QuesstionActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Log.e(TAG, "onResume");
+        getCurrentLesson();
         startBackgroundThread();
         if (textureView.isAvailable()) {
             openCamera();
         } else {
             textureView.setSurfaceTextureListener(textureListener);
         }
+
+        this.positionQuestion = 0;
+        this.newPoint = 0;
+        pictureTaken = false;
+        pointForQuestion = 0;
+        TextView pointView = findViewById(R.id.questionScore);
+        pointView.setText(String.valueOf(this.newPoint));
+        TextView wordView = findViewById(R.id.questionWord);
+        wordView.setText( currentLesson.wordList.get( this.positionQuestion ).word );
+
+        int wordSize = currentLesson.wordList.size();
+        Button btnNext = (Button) findViewById(R.id.questionNext);
+        if (positionQuestion < wordSize - 1) {
+            btnNext.setEnabled(true);
+        } else {
+            btnNext.setEnabled(true);
+        }
+
+        Button btnTakePicture = (Button) findViewById(R.id.btn_take_picture);
+        btnTakePicture.setEnabled(true);
+
     }
+
     @Override
     protected void onPause() {
         Log.e(TAG, "onPause");
