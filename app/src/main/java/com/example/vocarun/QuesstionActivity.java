@@ -31,7 +31,6 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,9 +46,7 @@ import com.google.firebase.ml.vision.label.FirebaseVisionLabelDetector;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,7 +84,7 @@ public class QuesstionActivity extends Activity {
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
 
-    private void checkImageMapWord(Bitmap bitmap, final String word) {
+    private void checkImageMapWord(Bitmap bitmap) {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
 
         //Get access to an instance of FirebaseImageDetector
@@ -101,12 +98,13 @@ public class QuesstionActivity extends Activity {
                 Log.println(Log.VERBOSE, "success123", String.valueOf(firebaseVisionLabels.size()));
                 for (int i = 0; i < firebaseVisionLabels.size(); ++i) {
                     Log.println(Log.VERBOSE, "label321", firebaseVisionLabels.get(i).getLabel());
-                    if (firebaseVisionLabels.get(i).getLabel().toLowerCase().equals(word)) {
-                        // Call correct function
+                    String currentWord = currentLesson.wordList.get(positionQuestion).word;
+                    if (firebaseVisionLabels.get(i).getLabel().toLowerCase().equals(currentWord)) {
+                        getImageResult(true);
                         break;
                     }
                 }
-                // Call wrong function
+                getImageResult(false);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -120,9 +118,6 @@ public class QuesstionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.eraser);
-        checkImageMapWord(bm, "eraser");
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -173,8 +168,8 @@ public class QuesstionActivity extends Activity {
         finish();
     }
 
-    public void getImageResult() {
-        
+    public void getImageResult(Boolean result) {
+        Log.println(Log.VERBOSE, "result123", result.toString());
     }
 
     private void nextQuestion() {
@@ -313,16 +308,19 @@ public class QuesstionActivity extends Activity {
                 }
                 private void save(byte[] bytes) throws IOException {
                     Log.e(TAG, "onSave");
-                    OutputStream output = null;
-                    try {
-                        output = new FileOutputStream(file);
-                        output.write(bytes);
-                        Log.e(TAG, "SaveSucceed");
-                    } finally {
-                        if (null != output) {
-                            output.close();
-                        }
-                    }
+
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    checkImageMapWord(bitmap);
+//                    OutputStream output = null;
+//                    try {
+//                        output = new FileOutputStream(file);
+//                        output.write(bytes);
+//                        Log.e(TAG, "SaveSucceed");
+//                    } finally {
+//                        if (null != output) {
+//                            output.close();
+//                        }
+//                    }
                 }
             };
             reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
