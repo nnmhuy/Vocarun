@@ -3,6 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".QuizFragment">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Quizz"
+            android:layout_marginVertical="40dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="35dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:textSize="20dp"
+            android:text="_The quizz includes 10 question."/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:textSize="20dp"
+            android:text="_With each question, you will receive one word and you have to capture a picture for it"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:textSize="20dp"
+            android:text="_The more time you spend, the less point you gain"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:id="@+id/currentPointText"
+            android:text="Have fun!"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="30dp"
+            android:id="@+id/startQuession"
+            android:text="Start"/>
+    </LinearLayout>
 </FrameLayout>
