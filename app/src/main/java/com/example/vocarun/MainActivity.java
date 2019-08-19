@@ -1,5 +1,7 @@
 package com.example.vocarun;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     final Fragment fragment2 = new QuizFragment();
     final Fragment fragment3 = new ScoreboardFragment();
     final FragmentManager fm = getSupportFragmentManager();
+    public int currentPoint = -1;
+    public static final int QUESTION_REQUEST = 12;
     Fragment activeFragment = fragment1;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -102,4 +106,28 @@ public class MainActivity extends AppCompatActivity {
         Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == QUESTION_REQUEST && data != null) {
+            if(resultCode == Activity.RESULT_OK){
+                String resultPoint =data.getStringExtra("result");
+//                Log.d("question point", resultPoint);
+                currentPoint = Integer.parseInt(resultPoint);
+            }
+//            if (resultCode == Activity.RESULT_CANCELED) {
+//                //Write your code if there's no result
+//            }
+        }
+    }
+
+    public void callQuestionActivity() {
+        Intent i = new Intent(this, QuesstionActivity.class);
+        i.putExtra("Lesson_name", "Animal");
+        this.startActivityForResult(i, QUESTION_REQUEST);
+    }
+
+    public int getPoint() {
+        return currentPoint;
+    }
 }
