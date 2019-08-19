@@ -3,16 +3,14 @@ package com.example.vocarun;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
-import android.view.MenuItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -70,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initFaKeScore() {
-        scoreList.add(new Score("Long Vu Quynh Chau", 40));
-        scoreList.add(new Score("Do Nhat Huy", 38));
-        scoreList.add(new Score("Trinh Huu Duc", 38));
-        scoreList.add(new Score("Nguyen Ngoc Minh Huy", 35));
-        scoreList.add(new Score("Dao Hieu", 20));
+        scoreList.add(new Score("Long Vu Quynh Chau", 15));
+        scoreList.add(new Score("Do Nhat Huy", 13));
+        scoreList.add(new Score("Trinh Huu Duc", 20));
+        scoreList.add(new Score("Nguyen Ngoc Minh Huy", 10));
+        scoreList.add(new Score("Dao Hieu", 3));
     }
 
     @Override

@@ -1,23 +1,19 @@
 package com.example.vocarun;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.List;
 import java.util.Timer;
@@ -127,7 +123,6 @@ public class StudyLesson extends AppCompatActivity {
     private void startLesson() {
         startButton.clearAnimation();
         startButton.setVisibility(View.INVISIBLE);
-        Log.println(Log.VERBOSE, "checkpoint", "start");
 
         wordItem.clearAnimation();
         wordItem.setVisibility(View.VISIBLE);

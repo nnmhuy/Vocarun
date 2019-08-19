@@ -91,15 +91,12 @@ public class QuesstionActivity extends Activity {
 
         //Get access to an instance of FirebaseImageDetector
         FirebaseVisionLabelDetector detector = FirebaseVision.getInstance().getVisionLabelDetector();
-        Log.println(Log.VERBOSE, "label123", "here");
 
 //        Use the detector to detect the labels inside the image
         detector.detectInImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionLabel>>() {
             @Override
             public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
-                Log.println(Log.VERBOSE, "success123", String.valueOf(firebaseVisionLabels.size()));
                 for (int i = 0; i < firebaseVisionLabels.size(); ++i) {
-                    Log.println(Log.VERBOSE, "label321", firebaseVisionLabels.get(i).getLabel());
                     String currentWord = currentLesson.wordList.get(positionQuestion).word;
                     if (firebaseVisionLabels.get(i).getLabel().toLowerCase().equals(currentWord)) {
                         getImageResult(true);
@@ -111,7 +108,6 @@ public class QuesstionActivity extends Activity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.println(Log.VERBOSE, "error321", "what");
             }
         });
     }
@@ -171,7 +167,6 @@ public class QuesstionActivity extends Activity {
     }
 
     public void getImageResult(Boolean result) {
-        Log.println(Log.VERBOSE, "result123", result.toString());
         if (result == true) {
             newPoint = newPoint + pointForQuestion;
             pointForQuestion = 10;
@@ -187,7 +182,7 @@ public class QuesstionActivity extends Activity {
 
             @Override
             public void onTick(long leftTimeInMilliseconds) {
-                positionQuestion--;
+                pointForQuestion--;
             }
             @Override
             public void onFinish() {
@@ -218,7 +213,7 @@ public class QuesstionActivity extends Activity {
         }
 
         pointForQuestion = 10;
-//        startTimer();
+        startTimer();
     }
 
     public void controlTakePicture() {
@@ -337,16 +332,6 @@ public class QuesstionActivity extends Activity {
 
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     checkImageMapWord(bitmap);
-//                    OutputStream output = null;
-//                    try {
-//                        output = new FileOutputStream(file);
-//                        output.write(bytes);
-//                        Log.e(TAG, "SaveSucceed");
-//                    } finally {
-//                        if (null != output) {
-//                            output.close();
-//                        }
-//                    }
                 }
             };
             reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
@@ -354,7 +339,6 @@ public class QuesstionActivity extends Activity {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(QuesstionActivity.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "captureCompleted1");
                     //createCameraPreview();
                 }
@@ -488,7 +472,7 @@ public class QuesstionActivity extends Activity {
         btnTakePicture.setEnabled(true);
 
         pointForQuestion = 10;
-//        startTimer();
+        startTimer();
     }
 
     @Override

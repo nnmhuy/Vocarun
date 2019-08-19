@@ -26,7 +26,7 @@ public class Lesson {
         Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
 
         List<Word> vehicleWords = new ArrayList<>();
-        vehicleWords.add(new Word("car", "/kär/", R.drawable.cat, R.raw.train));
+        vehicleWords.add(new Word("car", "/kär/", R.drawable.car, R.raw.car));
         vehicleWords.add(new Word("bicycle", "/ˈbīsikəl/", R.drawable.bicycle, R.raw.bicycle));
         vehicleWords.add(new Word("train", "/treɪn/ ", R.drawable.train, R.raw.train));
         Lesson.lessonList.add(new Lesson("Vehicle", R.drawable.vehicle_lesson, false, vehicleWords));
@@ -38,10 +38,10 @@ public class Lesson {
         Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
 
         List<Word> bodyWords = new ArrayList<>();
-        vehicleWords.add(new Word("hand", "/hand/", R.drawable.hand, R.raw.hand));
-        vehicleWords.add(new Word("mouth", "/maʊθ/", R.drawable.bicycle, R.raw.bicycle));
-        vehicleWords.add(new Word("ear", "/ɪr/", R.drawable.ear, R.raw.ear));
-        Lesson.lessonList.add(new Lesson("Body Parts", R.drawable.body_parts_lesson, true, bodyWords));
+        bodyWords.add(new Word("hand", "/hand/", R.drawable.hand, R.raw.hand));
+        bodyWords.add(new Word("mouth", "/maʊθ/", R.drawable.mouth, R.raw.mouth));
+        bodyWords.add(new Word("ear", "/ɪr/", R.drawable.ear, R.raw.ear));
+        Lesson.lessonList.add(new Lesson("Body Parts", R.drawable.body_parts_lesson, false, bodyWords));
 
 
         List<Word> kitchenWords = new ArrayList<>();
