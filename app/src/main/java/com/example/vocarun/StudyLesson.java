@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -26,7 +30,6 @@ public class StudyLesson extends AppCompatActivity {
     ConstraintLayout wordItem;
     TextView wordText, pronunciationText, processText;
     ImageView wordImage;
-    TextView timerText;
     final Context context = this;
 
     private final Timer timer = new Timer();
@@ -46,6 +49,7 @@ public class StudyLesson extends AppCompatActivity {
                         wordImage.setBackgroundResource(currentWord.imageId);
                         MediaPlayer mp = MediaPlayer.create(context, currentWord.pronounceId);
                         mp.start();
+                        startTimer();
                     }
                     ++counter;
                     if(counter >= currentLesson.wordList.size() + 1) {
@@ -62,12 +66,33 @@ public class StudyLesson extends AppCompatActivity {
             });
         }
     };
+    private CountDownTimer countDownTimer;
+    private ProgressBar progressBar;
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(3 * 1000, 50) {
+            // 500 means, onTick function will be called at every 500 milliseconds
+
+            @Override
+            public void onTick(long leftTimeInMilliseconds) {
+                long seconds = (long)((leftTimeInMilliseconds / 3000.0) * 100);
+                progressBar.setProgress((int)seconds);
+            }
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getCurrentLesson();
         setContentView(R.layout.activity_study_lesson);
+
+        progressBar = findViewById(R.id.timer);
 
         TextView lessonName = findViewById(R.id.lesson_name);
         lessonName.setText(currentLesson.name);
@@ -97,16 +122,12 @@ public class StudyLesson extends AppCompatActivity {
         wordText = findViewById(R.id.word);
         pronunciationText = findViewById(R.id.pronunciation);
         wordImage = findViewById(R.id.word_image);
-        timerText = findViewById(R.id.timer);
     }
 
     private void startLesson() {
         startButton.clearAnimation();
         startButton.setVisibility(View.INVISIBLE);
         Log.println(Log.VERBOSE, "checkpoint", "start");
-
-        timerText.clearAnimation();
-        timerText.setVisibility(View.VISIBLE);
 
         wordItem.clearAnimation();
         wordItem.setVisibility(View.VISIBLE);
