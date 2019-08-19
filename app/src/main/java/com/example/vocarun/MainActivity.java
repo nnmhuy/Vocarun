@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initLesson();
+        Lesson.initLesson();
         initFaKeScore();
 
         fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();
@@ -67,47 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
-
-    public void initLesson() {
-        List<Word> animalWords = new ArrayList<>();
-        animalWords.add(new Word("cat", "/kat/", R.drawable.cat, R.raw.cat));
-        animalWords.add(new Word("dog", "/dôɡ/", R.drawable.dog, R.raw.dog));
-        animalWords.add(new Word("bird", "/bərd/", R.drawable.bird, R.raw.bird));
-        Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, true, animalWords));
-
-        List<Word> kitchenWords = new ArrayList<>();
-        kitchenWords.add(new Word("bowl", "/bōl/", R.drawable.bowl, R.raw.bowl));
-        kitchenWords.add(new Word("dish", "/diSH/", R.drawable.dish, R.raw.dish));
-        kitchenWords.add(new Word("spoon", "/spo͞on/", R.drawable.spoon, R.raw.spoon));
-        Lesson.lessonList.add(new Lesson("Kitchen", R.drawable.kitchen_lesson, true, kitchenWords));
-
-        List<Word> schoolWords = new ArrayList<>();
-        schoolWords.add(new Word("book", "/bo͝ok/", R.drawable.book, R.raw.book));
-        schoolWords.add(new Word("pencil", "/ˈpensəl/", R.drawable.pencil, R.raw.pencil));
-        schoolWords.add(new Word("eraser", "/əˈrāsər/", R.drawable.eraser, R.raw.eraser));
-        Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
-
-
-        Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
-        Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
-        Lesson.lessonList.add(new Lesson("Kitchen", R.drawable.kitchen_lesson, false, kitchenWords));
-
-        Lesson.lessonList.add(new Lesson("Kitchen", R.drawable.kitchen_lesson, false, kitchenWords));
-        Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
-        Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
-
-        Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
-        Lesson.lessonList.add(new Lesson("Kitchen", R.drawable.kitchen_lesson, false, kitchenWords));
-        Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
-
-        Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
-        Lesson.lessonList.add(new Lesson("Kitchen", R.drawable.kitchen_lesson, false, kitchenWords));
-        Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
-
-        Lesson.lessonList.add(new Lesson("Kitchen", R.drawable.kitchen_lesson, false, kitchenWords));
-        Lesson.lessonList.add(new Lesson("School", R.drawable.school, false, schoolWords));
-        Lesson.lessonList.add(new Lesson("Animal", R.drawable.animal_lesson, false, animalWords));
     }
 
     public void initFaKeScore() {
